@@ -53,7 +53,7 @@ public class Login
 		Thread.sleep(3000);
 	}
 
-	@When("^user enter valid Username as (.+)$")
+	@When ("^user enter valid Username as \"(.*)\"$")
 	public void user_enter_valid_Username_as(String username) throws Throwable 
 	{
 		Object[] input5 = new Object[2];
@@ -63,7 +63,7 @@ public class Login
 		HTMLReportGenerator.StepDetails(output5.get("STATUS").toString(), "^user enter valid Username as (.+)$", output5.get("MESSAGE").toString());
 	}
 
-	@When("^user enter valid Password as (.+)$")
+	@When ("^user enter valid Password as \"(.*)\"$")
 	public void user_enter_valid_Password_as(String password) throws Throwable 
 	{
 		Object[] input6 = new Object[2];
