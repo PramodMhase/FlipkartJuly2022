@@ -7,24 +7,40 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+
+import cucumbermap.ConfigReader;
 
 public class SeleniumOperations 
 {
 		public static WebDriver driver=null;
+		public static ConfigReader config;
 		public static Hashtable<String, Object> outputparameters= new Hashtable<String, Object>();
 		public static Hashtable<String, Object> BrowserLaunch(Object[]inputParameters)
 		{
 			try 
 			{
 				String strBrowserName=(String)inputParameters[0];
-				String strexe=(String)inputParameters[1];
-				System.setProperty(strBrowserName, strexe);
+				if(strBrowserName.equalsIgnoreCase("Chrome"))
+				{
+				config =new ConfigReader();
+				System.setProperty("webdriver.chrome.driver", config.getDriverPathChrome());
 				driver=new ChromeDriver();
 				driver.manage().window().maximize();
-				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
+				}
+				
+				else if (strBrowserName.equalsIgnoreCase("FF"))
+				{
+					System.setProperty("webdriver.gecko.driver", config.getDriverPathFF());
+					driver=new FirefoxDriver();
+					driver.manage().window().maximize();
+					driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
+				}
 				outputparameters.put("STATUS", "PASS");
 				outputparameters.put("MESSAGE", "Action:BrowserLaunch, Input:"+inputParameters[0].toString());
+				
 			}
 			catch(Exception e)
 			{
@@ -34,20 +50,19 @@ public class SeleniumOperations
 			return outputparameters;
 		}
 		
-		public static Hashtable<String, Object> OpenApplication(Object[]inputParameters)
+		public static Hashtable<String, Object> OpenApplication()
 		{
 			try
 			{
-				String path = (String)inputParameters[0];
-				driver.get(path);
-				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+				driver.get(config.getApplicationUrl());
+				driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 				outputparameters.put("STATUS", "PASS");
-				outputparameters.put("MESSAGE", "Action:OpenApplication, Input:"+inputParameters[0].toString());
+				outputparameters.put("MESSAGE", "Action:OpenApplication, Input:"+config.getApplicationUrl().toString());
 			}
 			catch(Exception e)
 			{
 				outputparameters.put("STATUS", "FAIL");
-				outputparameters.put("MESSAGE", "Action:OpenApplication, Input:"+inputParameters[0].toString());
+				outputparameters.put("MESSAGE", "Action:OpenApplication, Input:"+config.getApplicationUrl().toString());
 			}
 			return outputparameters;
 		}
@@ -58,7 +73,7 @@ public class SeleniumOperations
 			{
 				String path = (String)inputParameters[0];
 				driver.findElement(By.xpath(path)).click();
-				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 				outputparameters.put("STATUS", "PASS");
 				outputparameters.put("MESSAGE", "Action:ClickOnElement, Input:"+inputParameters[0].toString());
 			}
@@ -79,7 +94,7 @@ public class SeleniumOperations
 				Actions act = new Actions(driver);
 				WebElement a = driver.findElement(By.xpath(path));
 				act.moveToElement(a).build().perform();
-				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 				outputparameters.put("STATUS", "PASS");
 				outputparameters.put("MESSAGE", "Action:MoveToElement, Input:"+inputParameters[0].toString());
 
@@ -99,7 +114,7 @@ public class SeleniumOperations
 					String path = (String)inputParameters[0];
 					String value=(String)inputParameters[1];
 					driver.findElement(By.xpath(path)).sendKeys(value);
-					driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+					driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 					outputparameters.put("STATUS", "PASS");
 					outputparameters.put("MESSAGE", "Action:SendTextOnUI, Input:"+inputParameters[1].toString());
 
@@ -128,7 +143,7 @@ public class SeleniumOperations
 					{
 						System.out.println("Test case fail");
 					}
-					driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+					driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 					outputparameters.put("STATUS", "PASS");
 					outputparameters.put("MESSAGE", "Action:ValidationByGetText, Input:"+inputParameters[1].toString());
 
@@ -145,15 +160,12 @@ public class SeleniumOperations
 		public static void main(String[] args) throws Throwable
 		{
 			//BrowserLaunch
-						Object[] input = new Object[2];
+						Object[] input = new Object[1];
 						input[0]="webdriver.chrome.driver";
-						input[1]="F:\\Automation Support\\Browsers\\chromedriver.exe";
 						SeleniumOperations.BrowserLaunch(input);
 						Thread.sleep(3000);
 			//OpenApplication
-						Object[] input1 = new Object[1];
-						input1[0]="https://www.flipkart.com/";
-						SeleniumOperations.OpenApplication(input1);
+						SeleniumOperations.OpenApplication();
 						
 			//ClickOnElement
 						Object[] input2 = new Object[1];

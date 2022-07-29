@@ -1,8 +1,8 @@
 Feature: Login Fuctionality
 
 Background: Application opens Successfully
-Given user open browser with "webdriver.chrome.driver" and "F:\\Automation Support\\Browsers\\chromedriver.exe"
-Given user enter url as "https://www.flipkart.com/"
+Given user open browser with "Chrome" exe
+Given user enter url as
 
 @SmokeTest
 Scenario Outline: Login functionality with valid credentials

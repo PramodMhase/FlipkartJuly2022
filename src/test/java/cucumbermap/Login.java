@@ -10,22 +10,19 @@ import utility.SeleniumOperations;
 
 public class Login 
 {
-	@Given ("^user open browser with \"(.*)\" and \"(.*)\"$")
-	public void bLaunch(String browser, String value) throws Throwable
+	@Given ("^user open browser with \"(.*)\" exe$")
+	public void bLaunch(String browser) throws Throwable
 	{
-		Object[] input = new Object[2];
+		Object[] input = new Object[1];
 		input[0]=browser;
-		input[1]=value;
 		SeleniumOperations.BrowserLaunch(input);
 		Thread.sleep(3000);
 	}
 	
-	@Given ("^user enter url as \"(.*)\"$")
-	public void OpenApplication(String url)
+	@Given ("^user enter url as$")
+	public void OpenApplication()
 	{
-		Object[] input1 = new Object[1];
-		input1[0]=url;
-		SeleniumOperations.OpenApplication(input1);
+		SeleniumOperations.OpenApplication();
 	}
 	
 	@When("^user click on initial login page$")
