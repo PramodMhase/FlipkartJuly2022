@@ -11,7 +11,7 @@ Given user enter valid Password as "Pramod@250587"
 Given user click on final Login button
 
 
-@SmokeTest
+
 Scenario: Manage Adresses functionality with Adress details
 When User click on Manage Addresses tab
 When User Click on ADD A NEW ADDRESS

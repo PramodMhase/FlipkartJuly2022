@@ -1,6 +1,8 @@
 package utility;
 
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -156,6 +158,28 @@ public class SeleniumOperations
 				}		
 			return outputparameters;
 		}
+		public static Hashtable<String, Object> SwitchToWindow()
+		{
+			try 
+				{
+				Set<String> ids =driver.getWindowHandles();
+				Iterator<String> itr=ids.iterator();
+						String CT1 =itr.next();
+						String CT2 = itr.next();
+				driver.switchTo().window(CT2);
+				Thread.sleep(3000);
+					driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
+					outputparameters.put("STATUS", "PASS");
+					outputparameters.put("MESSAGE", "Action:SwitchToWindow, Input:Switch to Another Window");
+				}
+			
+				catch(Exception e)
+				{
+					outputparameters.put("STATUS", "FAIL");
+					outputparameters.put("MESSAGE", "Action:SwitchToWindow, Input:Switch to Another Window");
+				}		
+			return outputparameters;
+		}
 	
 		public static void main(String[] args) throws Throwable
 		{
@@ -209,5 +233,7 @@ public class SeleniumOperations
 						input8[1]="//*[text()='PRAMOD MHASE']";	
 						SeleniumOperations.ValidationByGetText(input8);
 						Thread.sleep(3000);	
+			//Switch To Window
+						SeleniumOperations.SwitchToWindow();
 		}
 	}

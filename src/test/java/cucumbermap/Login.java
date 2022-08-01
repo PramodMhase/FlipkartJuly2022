@@ -18,7 +18,7 @@ public class Login
 		SeleniumOperations.BrowserLaunch(input);
 		Thread.sleep(3000);
 	}
-	
+		
 	@Given ("^user enter url as$")
 	public void OpenApplication()
 	{
