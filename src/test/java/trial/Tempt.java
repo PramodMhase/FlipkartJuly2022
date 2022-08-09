@@ -1,9 +1,13 @@
 package trial;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -45,7 +49,12 @@ public class Tempt
 				
 				//Validation
 				Thread.sleep(4000);
-							//Edit Personal Information
+				
+/*				TakesScreenshot ts = (TakesScreenshot)driver;
+				File file =ts.getScreenshotAs(OutputType.FILE);
+				FileUtils.copyFile(file, new File("./Screenshot/Image1.png"));
+				
+			*/				//Edit Personal Information
 				driver.findElement(By.xpath("(//*[text()='Edit'])[1]")).click();
 				WebElement double1 = driver.findElement(By.xpath("//*[@name='firstName']"));
 				act.doubleClick(double1).build().perform();
@@ -99,6 +108,6 @@ public class Tempt
 				Thread.sleep(3000);
 				driver.findElement(By.xpath("//*[text()='Home']")).click();
 				Thread.sleep(2000);
-				driver.findElement(By.xpath("//*[@tabindex='10']")).click();
+				driver.findElement(By.xpath("//*[@tabindex='10']")).click();		
 	}
 }
