@@ -50,11 +50,11 @@ public class Tempt
 				//Validation
 				Thread.sleep(4000);
 				
-/*				TakesScreenshot ts = (TakesScreenshot)driver;
+				TakesScreenshot ts = (TakesScreenshot)driver;
 				File file =ts.getScreenshotAs(OutputType.FILE);
 				FileUtils.copyFile(file, new File("./Screenshot/Image1.png"));
 				
-			*/				//Edit Personal Information
+						//Edit Personal Information
 				driver.findElement(By.xpath("(//*[text()='Edit'])[1]")).click();
 				WebElement double1 = driver.findElement(By.xpath("//*[@name='firstName']"));
 				act.doubleClick(double1).build().perform();

@@ -94,4 +94,11 @@ public class Login
 		HTMLReportGenerator.StepDetails(output8.get("STATUS").toString(), "^application shows user login successfully$", output8.get("MESSAGE").toString());
 		Thread.sleep(3000);	
 	}
+	@When ("^user take Screenshot of webpage$")
+	public void user_take_Screenshot_of_webpage() throws Throwable
+	{
+		Hashtable<String, Object> output9 =SeleniumOperations.TakeScreenshot();
+		HTMLReportGenerator.StepDetails(output9.get("STATUS").toString(), "^user take Screenshot of webpage$", output9.get("MESSAGE").toString());
+		Thread.sleep(3000);	
+	}
 }

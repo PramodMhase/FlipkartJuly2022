@@ -1,11 +1,15 @@
 package utility;
 
+import java.io.File;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -180,6 +184,25 @@ public class SeleniumOperations
 				}		
 			return outputparameters;
 		}
+		public static Hashtable<String, Object> TakeScreenshot()
+		{
+			try 
+		
+		{
+			TakesScreenshot ts = (TakesScreenshot)driver;
+			File file =ts.getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(file, new File("./Screenshot/image1.png"));
+			driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
+			outputparameters.put("STATUS", "PASS");
+			outputparameters.put("MESSAGE", "Action:TakeScreenshot, Input:Screenshot");
+		}
+			catch(Exception e)
+			{
+				outputparameters.put("STATUS", "FAIL");
+				outputparameters.put("MESSAGE", "Action:TakeScreenshot, Input:Screenshot");
+			}		
+		return outputparameters;
+		}
 	
 		public static void main(String[] args) throws Throwable
 		{
@@ -235,5 +258,9 @@ public class SeleniumOperations
 						Thread.sleep(3000);	
 			//Switch To Window
 						SeleniumOperations.SwitchToWindow();
+			//TakeScreenShot
+						//Switch To Window
+						SeleniumOperations.TakeScreenshot();
+
 		}
 	}
