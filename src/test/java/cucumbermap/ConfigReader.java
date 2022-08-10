@@ -58,5 +58,11 @@ public class ConfigReader
 	 if(url != null) return url;
 	 else throw new RuntimeException("url not specified in the Configuration.properties file.");
 	 }
-		
+	 
+	 public String getScreenshotName() 
+	 {
+	 String screnshotName = properties.getProperty("screnshotName");
+	 if(screnshotName != null) return screnshotName;
+	 else throw new RuntimeException("screnshotName not specified in the Configuration.properties file.");
+	 }
 }

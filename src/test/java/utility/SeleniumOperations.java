@@ -184,22 +184,22 @@ public class SeleniumOperations
 				}		
 			return outputparameters;
 		}
-		public static Hashtable<String, Object> TakeScreenshot()
+		public static Hashtable<String, Object> TakeScreenshot(Object[]inputParameters)
 		{
 			try 
-		
 		{
+			String screenshotName=(String)inputParameters[0];
 			TakesScreenshot ts = (TakesScreenshot)driver;
 			File file =ts.getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(file, new File("./Screenshot/image1.png"));
+			FileUtils.copyFile(file, new File("./Screenshot/"+ config.getScreenshotName() +".png"));
 			driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 			outputparameters.put("STATUS", "PASS");
-			outputparameters.put("MESSAGE", "Action:TakeScreenshot, Input:Screenshot");
+			outputparameters.put("MESSAGE", "Action:TakeScreenshot, Input:"+config.getScreenshotName().toString());
 		}
 			catch(Exception e)
 			{
 				outputparameters.put("STATUS", "FAIL");
-				outputparameters.put("MESSAGE", "Action:TakeScreenshot, Input:Screenshot");
+				outputparameters.put("MESSAGE", "Action:TakeScreenshot, Input:"+config.getScreenshotName().toString());
 			}		
 		return outputparameters;
 		}
@@ -260,7 +260,9 @@ public class SeleniumOperations
 						SeleniumOperations.SwitchToWindow();
 			//TakeScreenShot
 						//Switch To Window
-						SeleniumOperations.TakeScreenshot();
+						Object[] input9 = new Object[1];
+						input9[0]="Image2";
+						SeleniumOperations.TakeScreenshot(input9);
 
 		}
 	}

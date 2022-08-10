@@ -97,7 +97,9 @@ public class Login
 	@When ("^user take Screenshot of webpage$")
 	public void user_take_Screenshot_of_webpage() throws Throwable
 	{
-		Hashtable<String, Object> output9 =SeleniumOperations.TakeScreenshot();
+		Object[] input9 = new Object[1];
+		input9[0]="Image2";
+		Hashtable<String, Object> output9 =SeleniumOperations.TakeScreenshot(input9);
 		HTMLReportGenerator.StepDetails(output9.get("STATUS").toString(), "^user take Screenshot of webpage$", output9.get("MESSAGE").toString());
 		Thread.sleep(3000);	
 	}
